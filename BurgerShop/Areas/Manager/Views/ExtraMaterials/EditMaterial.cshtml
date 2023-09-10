@@ -1,0 +1,22 @@
+﻿@model ExtraMaterial
+@{
+    ViewBag.Title = "Edit ExtraMaterial";
+}
+
+<a asp-action="Index" class="btn btn-secondary">Back to The List</a>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="MaterialName" class="form-label">Material Name</label>
+        <input asp-for="MaterialName" class="form-control" placeholder="Please enter material name." />
+        <span asp-validation-for="MaterialName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="MaterialPrice" class="form-label">Material Price</label>
+        <input asp-for="MaterialPrice" class="form-control" placeholder="Please enter material price." />
+        <span asp-validation-for="MaterialPrice" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Material</button>
+</form>

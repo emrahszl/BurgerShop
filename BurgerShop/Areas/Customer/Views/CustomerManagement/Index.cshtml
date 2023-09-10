@@ -1,0 +1,73 @@
+﻿@using BurgerShop.Data.Enums;
+@model List<Order>
+@{
+    ViewBag.Title = "Welcome " + ViewBag.CustomerName;
+}
+
+
+<div class="card">
+    <div class="card-header p-2">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a id="manage" class="nav-link text-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile Settings</a></li>
+        </ul>
+    </div><!-- /.card-header -->
+    <div class="card-body">
+        <div class="tab-content">
+            <h5 class="mb-3">My Orders</h5>
+            <a class="btn btn-primary mb-3" asp-area="Customer" asp-controller="Orders" asp-action="CreateOrder">Create Order</a>
+            <table class="table table-hover table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Order Size</th>
+                        <th>Order Count</th>
+                        <th>Order Infos</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.Id</td>
+                            <td>@order.OrderSize</td>
+                            <td>@order.OrderCount</td>
+                            <td>
+                                <ul class="list-unstyled">
+                                    <li><strong>Menus</strong></li>
+
+                                    @foreach (var menu in order.Menus)
+                                    {
+                                        <li>@menu.MenuNamePrice</li>
+                                    }
+                                </ul>
+
+                                <hr />
+
+                                <ul class="list-unstyled">
+                                    <li><strong>Extra Materials</strong></li>
+
+                                    @foreach (var em in order.ExtraMaterials)
+                                    {
+                                        <li>@em.ExtraNamePrice</li>
+                                    }
+                                </ul>
+
+                                <hr />
+
+                                <ul class="list-unstyled">
+                                    <li><strong>Order Amount = @(((order.Menus.Sum(m => m.MenuPrice) + order.ExtraMaterials.Sum(em => em.MaterialPrice)) + (order.OrderSize == OrderSize.Small ? 0m : order.OrderSize == OrderSize.Medium ? 25m : 50m)) * order.OrderCount) TL</strong></li>
+                                </ul>
+                            </td>
+                            <td>
+                                <a asp-area="Customer" asp-controller="Orders" asp-action="DeleteOrder" asp-route-id="@order.Id" class="btn btn-danger">Delete</a>
+                                <a asp-area="Customer" asp-controller="Orders" asp-action="EditOrder" asp-route-id="@order.Id" class="btn btn-warning">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- /.card -->

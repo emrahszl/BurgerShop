@@ -1,0 +1,16 @@
+﻿@model Order
+@{
+    ViewBag.Title = "Delete Order";
+}
+
+<section id="hero" class="d-flex flex-column align-items-center mt-5 pt-5">
+    <div class="container position-relative m-5 w-75 d-flex flex-column align-items-center">
+        <h5 class="mb-3">Delete Order Confirmation</h5>
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+            <p>Do you really want to delete this order?</p>
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <a class="btn btn-secondary"asp-area="Customer" asp-controller="CustomerManagement" asp-action="Index">Cancel</a>
+        </form>
+    </div>
+</section>

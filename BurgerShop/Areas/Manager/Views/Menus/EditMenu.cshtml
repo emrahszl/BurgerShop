@@ -1,0 +1,22 @@
+﻿@model Menu
+@{
+    ViewBag.Title = "Edit Menu";
+}
+
+<a asp-action="Index" class="btn btn-secondary">Back to The List</a>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="MenuName" class="form-label">Menu Name</label>
+        <input asp-for="MenuName" class="form-control" placeholder="Please enter menu name." />
+        <span asp-validation-for="MenuName" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="MenuPrice" class="form-label">Menu Price</label>
+        <input asp-for="MenuPrice" class="form-control" placeholder="Please enter menu price." />
+        <span asp-validation-for="MenuPrice" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Menu</button>
+</form>

@@ -1,0 +1,62 @@
+﻿@model OrderViewModel
+@{
+    ViewBag.Title = "Create Order";
+}
+
+<form method="post">
+    <div>
+        <div class="input-group mb-3">
+            <label asp-for="MenuIds" class="input-group-text fw-bold px-3">Select Menus</label>
+            <select asp-for="MenuIds" class="form-select selectpicker mx-3" asp-items="@(new SelectList(ViewBag.Menus, "Id", "MenuNamePrice"))" multiple></select>
+            <span asp-validation-for="MenuIds" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="ExtraMaterialIds" class="input-group-text fw-bold px-3">Select Extras</label>
+            <select asp-for="ExtraMaterialIds" class="form-select selectpicker mx-3" asp-items="@(new SelectList(ViewBag.ExtraMaterials, "Id", "ExtraNamePrice"))" multiple></select>
+            <span asp-validation-for="ExtraMaterialIds" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="OrderSize" class="input-group-text fw-bold px-4">Select Size</label>
+            <select asp-for="OrderSize" class="form-select selectpicker mx-3" asp-items="@(new SelectList(ViewBag.OrderSizes))"></select>
+            <span asp-validation-for="OrderSize" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="OrderCount" class="input-group-text fw-bold">Order Quantity</label>
+            <input asp-for="OrderCount" class="form-control mx-3" min="1" value="1" />
+            <span asp-validation-for="OrderCount" class="text-danger"></span>
+        </div>
+        <div class="d-flex align-items-baseline mb-3">
+            <label class="input-group-text fw-bolder">Total Order Amount</label>
+            <label id="orderAmount" class="text-danger mx-5">0</label>
+            <label class="fw-bolder text-danger"> TL</label>
+        </div>
+        <button type="submit" class="btn btn-success w-100 mb-3">Create</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        $("#MenuIds, #ExtraMaterialIds, #OrderSize, #OrderCount").on("change input", function () {
+            let selectedMenuIds = $("#MenuIds").val();
+            let selectedExtraMaterialIds = $("#ExtraMaterialIds").val();
+            let selectedOrderSize = $("#OrderSize").val();
+            let orderCount = $("#OrderCount").val();
+
+            let link = "@Url.Action("CalculateOrderAmount")";
+
+            $.ajax({
+                url: link,
+                type: "POST",
+                data: {
+                    MenuIds: selectedMenuIds,
+                    ExtraMaterialIds: selectedExtraMaterialIds,
+                    OrderSize: selectedOrderSize,
+                    OrderCount: orderCount
+                },
+                success: function (data) {
+                    $("#orderAmount").text(data);
+                }
+            });
+        });
+    </script>
+}

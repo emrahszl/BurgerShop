@@ -1,0 +1,31 @@
+﻿@model OrderViewModel
+
+@{
+    ViewBag.Title = "Edit Order";
+}
+
+<form method="post">
+    <div class="text-center">
+        <div class="input-group mb-3">
+            <label asp-for="MenuIds" class="input-group-text fw-bold px-3">Select Menus</label>
+            <select asp-for="MenuIds" class="form-select selectpicker mx-3" asp-items="@(new SelectList(ViewBag.Menus, "Id", "MenuNamePrice"))" multiple></select>
+            <span asp-validation-for="MenuIds" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="ExtraMaterialIds" class="input-group-text fw-bold px-3">Select Extras</label>
+            <select asp-for="ExtraMaterialIds" class="form-select selectpicker mx-3" asp-items="@(new SelectList(ViewBag.ExtraMaterials, "Id", "ExtraNamePrice"))" multiple></select>
+            <span asp-validation-for="ExtraMaterialIds" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="OrderSize" class="input-group-text fw-bold px-4">Select Size</label>
+            <select asp-for="OrderSize" class="form-select mx-3" asp-items="@(new SelectList(ViewBag.OrderSizes))"></select>
+            <span asp-validation-for="OrderSize" class="text-danger"></span>
+        </div>
+        <div class="input-group mb-3">
+            <label asp-for="OrderCount" class="input-group-text fw-bold">Select Amount</label>
+            <input asp-for="OrderCount" class="form-control mx-3" min="1" />
+            <span asp-validation-for="OrderCount" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success w-100 mb-3">Confirm</button>
+    </div>
+</form>

@@ -1,0 +1,13 @@
+﻿@model ExtraMaterial
+@{
+    ViewBag.Title = "Delete ExtraMaterial";
+}
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <p>Do you really want to do delete @Model.MaterialName material?</p>
+    <button type="submit" class="btn btn-danger">Yes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+

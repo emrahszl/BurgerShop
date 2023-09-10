@@ -1,0 +1,33 @@
+﻿@model List<Menu>
+@{
+    ViewBag.Title = "Menus";
+}
+
+<div class="card">
+    <div class="card-body">
+        <a class="btn btn-primary mb-3" asp-area="Manager" asp-controller="Menus" asp-action="CreateMenu">Create Menu</a>
+
+        <table class="table table-hover table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Menu Name</th>
+                    <th>Menu Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var menu in Model)
+                {
+                    <tr>
+                        <td>@menu.MenuName</td>
+                        <td>@menu.MenuPrice</td>
+                        <td>
+                            <a asp-area="Manager" asp-controller="Menus" asp-action="DeleteMenu" asp-route-id="@menu.Id" class="btn btn-danger">Delete</a>
+                            <a asp-area="Manager" asp-controller="Menus" asp-action="EditMenu" asp-route-id="@menu.Id" class="btn btn-warning">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
